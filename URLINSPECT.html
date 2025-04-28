@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL INSPECTOR</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="URLINSPECT.css">
+    
+    <script defer src="https://kit.fontawesome.com/fac54f0bd8.js"></script>
+    <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script defer src="URLINSPECT.js"></script>
+</head>
+
+<body>
+    <div class="bg-gray-100 text-gray-800 font-sans min-h-screen mt-12">
+
+        <!-- 🔝 MENU BAR -->
+        <header class="bg-blue-700 text-white p-4 flex justify-between items-center shadow-lg fixed top-0 left-0 right-0 z-50">
+            <h1 class="text-lg font-bold">🔗 URL INSPECTOR</h1>
+            <div class="flex gap-3">
+                <button onclick="toggleHistory()" class="bg-white text-blue-700 px-3 py-1 rounded-lg text-sm hover:bg-blue-100">📁 View History</button>
+            </div>
+        </header>
+
+        <!-- 💻 MAIN SECTION -->
+        <main class="pt-28 flex flex-col items-center justify-center p-4 gap-4">
+
+            <!-- 🌐 LINK CHECKER -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl max-w-xl w-full">
+                <input id="linkInput" type="text" placeholder="Paste a link here..." class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+                <button onclick="checkLink()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mb-4">Check Link</button>
+
+                <div id="result" class="text-lg font-medium mb-4"></div>
+            </div>
+
+            <!-- 📁 HISTORY PANEL -->
+            <div id="historyPanel" class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full hidden transition-all duration-300">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">🕓 History</h2>
+                    <div class="flex gap-2 flex-wrap">
+                        <button onclick="clearHistory()" class="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded-lg">🧹 Clear</button>
+                        <button onclick="exportHistory()" class="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded-lg">📤 Export</button>
+                        <label class="cursor-pointer bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-sm hover:bg-blue-200">
+                            📥 Import
+                            <input type="file" accept=".json" onchange="importHistory(event)" class="hidden" />
+                        </label>
+                    </div>
+                </div>
+
+                <ul id="historyList" class="space-y-2 text-sm max-h-60 overflow-y-auto"></ul>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Bootstrap Footer Section: (same) -->
+    <div class="d-flex justify-content-center flex-column">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="https://cdn4.iconfinder.com/data/icons/materia-flat-multimedia-vol-2/24/007_097_link_chain_connect_connected-512.png" class="food-munch-logo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav ml-auto">
+                        <a class="nav-link active" id="navItem1" href="#wcuSection">Why Choose Us?</a>
+                        <a class="nav-link" id="navItem2" href="#exploreMenuSection">Explore Menu</a>
+                        <a class="nav-link" id="navItem4" href="#followUsSection">Follow Us</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="banner-section-bg-container d-flex justify-content-center flex-column"></div>
+
+
+<div class="wcu-section pt-5 pb-5" id="wcuSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="wcu-section-heading">Why Choose Us?</h1>
+                <p class="wcu-section-description">
+                    We use both original recipes and classic versions of famous food
+                    items.
+                </p>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="wcu-card p-3 mb-3">
+                    <img src="https://img.freepik.com/premium-vector/feedback-concept-2-colored-line-icon-simple-yellow-blue-element-illustration-feedback-concept-outline-symbol-design_159242-4824.jpg?w=740" class="wcu-card-image mx-auto" />
+                    <h1 class="wcu-card-title mt-3">Instant Feedback</h1>
+                    <p class="wcu-card-description">
+                        We believe in speed. The moment you enter a link,
+                        our tool gives you immediate feedback—no loading delays,
+                        no unnecessary clicks. It's built for fast, frictionless experiences.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="wcu-card p-3 mb-3">
+                    <img src="https://img.freepik.com/free-vector/cyber-security-shield-light-blue_78370-7843.jpg?t=st=1744131428~exp=1744135028~hmac=6af168f8c1831129304eb058d8d6c48e84e64a79ffe8d2c08cc8fb401b6b9832&w=740" class="wcu-card-image mx-auto" />
+                    <h1 class="wcu-card-title mt-3">Privacy First</h1>
+                    <p class="wcu-card-description">
+                        Your trust matters. We don't store, track, or share your URLs. Every check happens
+                        on your device with zero data logging—just clean, private verification.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="wcu-card p-3 mb-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdj4cxyGXhkL9bxbgB9TosY5c1JQ8BKpre_Q&s" class="wcu-card-image mx-auto" />
+                    <h1 class="wcu-card-title mt-3">Always Accessible</h1>
+                    <p class="wcu-card-description">
+                        Whether you're on desktop or mobile, our tool is optimized for every screen.
+                        It's responsive, intuitive, and always just a tap away.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="thanking-customers-section pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-7 d-flex flex-column justify-content-center">
+                <h1 class="thanking-customers-section-heading">
+                    A Thank You from Us to You
+                </h1>
+                <p class="thanking-customers-section-description">
+                    You've Unlocked a Surprise!
+                </p>
+                <div class="d-md-none">
+                    <!-- Removed image here as requested -->
+                </div>
+                <div>
+                    <button type="button" class="custom-button" data-toggle="modal" data-target="#exampleModal">
+                        Redeem Gift
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog mt-5">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title thanking-customers-section-modal-title" id="exampleModalLabel">
+                                        Gift Voucher
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h6 class="font-weight-bold">🎯 Productivity Tool Gift</h6>
+                                    <p>Boost your daily flow with this lightweight to-do manager.</p>
+                                    <a href="https://todoist.com" target="_blank" class="btn btn-success">
+                                        Try Todoist Now
+                                    </a>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal -->
+                </div>
+            </div>
+
+            <div class="col-12 col-md-5 d-none d-md-block">
+                <!-- Removed image here as well -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="follow-us-section pt-5 pb-5" id="followUsSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="follow-us-section-heading">Follow Us</h1>
+            </div>
+            <div class="col-12">
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="follow-us-icon-container">
+                        <i class="fab fa-twitter icon"></i>
+                    </div>
+                    <div class="follow-us-icon-container">
+                        <i class="fab fa-instagram icon"></i>
+                    </div>
+                    <div class="follow-us-icon-container">
+                        <i class="fab fa-facebook icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-section pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center d-flex flex-column justify-content-center">
+                <img src="https://cdn4.iconfinder.com/data/icons/materia-flat-multimedia-vol-2/24/007_097_link_chain_connect_connected-512.png" class="logo mx-auto" />
+                <h1 class="footer-section-mail-id">support@urlverifier.io</h1>
+                <p class="footer-section-address">
+                    Built with 🔒 in mind. <br />
+                    221B Secure Lane, Cyber City, India.
+                </p>
+                <p class="footer-section-address">
+                    © 2025 URL Verifier. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
